@@ -1,0 +1,32 @@
+:root {
+    /* ===== ТВОЯ ПАЛИТРА ===== */
+    --color-primary: #2D9359;
+    --color-primary-dark: #1F6B3F;
+    --color-primary-light: #4AB87A;
+
+    --color-secondary: #693C26;
+    --color-secondary-dark: #4A2918;
+    --color-secondary-light: #8B5A3C;
+
+    --color-bg: #F9F7F4;
+    --color-white: #FFFFFF;
+    --color-text: #1A1A1A;
+    --color-gray: #6B7280;
+    --color-gray-light: #E5E7EB;
+    --color-error: #DC3545;
+    --color-success: #28A745;
+
+    /* ===== ШРИФТЫ ===== */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* ===== РАЗМЕРЫ ===== */
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+    /* ===== ОТСТУПЫ ===== */
+    --container: 1200px;
+    --gap: 24px;
+}
