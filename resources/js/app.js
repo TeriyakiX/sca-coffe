@@ -2,7 +2,6 @@
 import './bootstrap'
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
 // Импортируем глобальные стили
@@ -13,36 +12,23 @@ import { createPinia } from 'pinia'
 
 const appName = import.meta.env.VITE_APP_NAME || 'SCA Coffee'
 
-// Собираем все страницы из модулей и Pages
 const pages = import.meta.glob([
     './Pages/**/*.vue',
     './modules/**/pages/*.vue'
-])
+], { eager: true })
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        // Пробуем найти страницу в модулях
-        // Например: Membership/Join -> ./modules/membership/pages/Join.vue
-        const modulePath = `./modules/${name.toLowerCase()}.vue`
+        let page = pages[`./Pages/${name}.vue`]
+        if (page) return page
+        const parts = name.split('/')
+        const module = parts[0].toLowerCase()
+        const component = parts[1] || 'Index'
+        page = pages[`./modules/${module}/pages/${component}.vue`]
+        if (page) return page
 
-        // Ищем среди всех страниц
-        for (const [path, resolver] of Object.entries(pages)) {
-            // Проверяем совпадение
-            const normalizedPath = path.replace('./modules/', '').replace('./Pages/', '')
-            const normalizedName = name.replace(/\\/g, '/')
-
-            if (normalizedPath.includes(normalizedName) ||
-                path.includes(`modules/${name.split('/')[0].toLowerCase()}/pages/${name.split('/')[1]}.vue`)) {
-                return resolver()
-            }
-        }
-
-        // Если не нашли - ищем в Pages
-        return resolvePageComponent(
-            `./Pages/${name}.vue`,
-            import.meta.glob('./Pages/**/*.vue')
-        )
+        throw new Error(`Page not found: ${name}`)
     },
     setup({ el, App, props, plugin }) {
         const pinia = createPinia()
