@@ -37,7 +37,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { router } from '@inertiajs/vue3'
 import VButton from '@/shared/components/ui/VButton.vue'
 import { businessData } from '../constants/businessData'
 
@@ -51,7 +50,7 @@ onMounted(() => {
 })
 
 const goToBusiness = () => {
-    router.get('/business')
+    window.location.href = '/business'
 }
 </script>
 

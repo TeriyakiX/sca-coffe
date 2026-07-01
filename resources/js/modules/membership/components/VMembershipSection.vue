@@ -48,7 +48,6 @@
 import { ref, onMounted } from 'vue'
 import VButton from '@/shared/components/ui/VButton.vue'
 import VIcon from '@/shared/components/ui/VIcon.vue'
-import { router } from '@inertiajs/vue3'
 
 const videoRef = ref(null)
 
@@ -64,8 +63,8 @@ const features = [
     { id: 3, icon: 'trophy', title: 'Развитие и признание', text: 'Повысьте свой авторитет с помощью образовательных программ и сертификации.' }
 ]
 
-const goToJoin = () => router.get('/membership/join')
-const goToAbout = () => router.get('/about')
+const goToJoin = () => { window.location.href = '/membership/join' }
+const goToAbout = () => { window.location.href = '/about' }
 </script>
 
 <style scoped>

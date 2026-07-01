@@ -58,12 +58,11 @@
 <script setup>
 import VButton from '@/shared/components/ui/VButton.vue'
 import { educationData } from '../constants/educationData'
-import { router } from '@inertiajs/vue3'
 
 const data = educationData
 
 const goToEducation = () => {
-    router.get('/education')
+    window.location.href = '/education'
 }
 </script>
 

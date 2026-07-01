@@ -39,10 +39,18 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import MainLayout from '@/app/layouts/MainLayout.vue'
 
-defineProps({
-    items: { type: Array, required: true }
+const items = ref([])
+
+onMounted(async () => {
+    try {
+        const res = await fetch('/api/pages')
+        items.value = await res.json()
+    } catch (e) {
+        console.error('Ошибка загрузки страниц', e)
+    }
 })
 </script>
 
