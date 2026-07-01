@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-
 class PageController extends Controller
 {
-    /**
-     * Список страниц — используется и в index(), и в show()
-     */
     private function pages()
     {
         return [
@@ -186,10 +181,6 @@ class PageController extends Controller
         ];
     }
 
-    /**
-     * Страница-индекс: /info
-     * Показывает список всех подразделов
-     */
     public function index()
     {
         $pages = $this->pages();
@@ -201,14 +192,9 @@ class PageController extends Controller
             ];
         })->values();
 
-        return Inertia::render('Info/InfoIndex', [
-            'items' => $items,
-        ]);
+        return response()->json($items);
     }
 
-    /**
-     * Отдельная подстраница: /page/{slug}
-     */
     public function show($slug)
     {
         $pages = $this->pages();
@@ -218,9 +204,6 @@ class PageController extends Controller
             'content' => '<p>Информация отсутствует.</p>',
         ];
 
-        return Inertia::render('Page', [
-            'page' => $page,
-            'slug' => $slug,
-        ]);
+        return response()->json($page);
     }
 }

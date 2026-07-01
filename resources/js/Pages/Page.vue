@@ -1,46 +1,64 @@
 <template>
     <MainLayout>
         <div class="page">
-            <!-- Шапка страницы -->
-            <div class="page__hero">
-                <div class="container">
-                    <nav class="page__breadcrumbs">
-                        <a href="/" class="page__bc-link">Главная</a>
-                        <span class="page__bc-sep">/</span>
-                        <a href="/info" class="page__bc-link">Сведения об образовательной организации</a>
-                        <span class="page__bc-sep">/</span>
-                        <span class="page__bc-current">{{ page.title }}</span>
-                    </nav>
-                    <h1 class="page__title">{{ page.title }}</h1>
+            <div v-if="loading" class="page__loading">Загрузка...</div>
+
+            <template v-else>
+                <!-- Шапка страницы -->
+                <div class="page__hero">
+                    <div class="container">
+                        <nav class="page__breadcrumbs">
+                            <a href="/" class="page__bc-link">Главная</a>
+                            <span class="page__bc-sep">/</span>
+                            <a href="/info" class="page__bc-link">Сведения об образовательной организации</a>
+                            <span class="page__bc-sep">/</span>
+                            <span class="page__bc-current">{{ page.title }}</span>
+                        </nav>
+                        <h1 class="page__title">{{ page.title }}</h1>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Контент -->
-            <div class="container">
-                <div class="page__content" v-html="page.content"></div>
-
-                <button class="page__back" @click="goBack">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
-                    Назад
-                </button>
-            </div>
+                <!-- Контент -->
+                <div class="container">
+                    <div class="page__content" v-html="page.content"></div>
+                    <button class="page__back" @click="goBack">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Назад
+                    </button>
+                </div>
+            </template>
         </div>
     </MainLayout>
 </template>
 
 <script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import MainLayout from '@/app/layouts/MainLayout.vue'
 
-defineProps({
-    page: { type: Object, required: true },
-    slug: { type: String, required: true }
-})
+const route = useRoute()
+const loading = ref(true)
+const page = ref({ title: '', content: '' })
 
-const goBack = () => {
-    window.history.back()
+const fetchPage = async (slug) => {
+    loading.value = true
+    try {
+        const res = await fetch(`/api/pages/${slug}`)
+        const data = await res.json()
+        page.value = data
+    } catch (e) {
+        page.value = { title: 'Страница не найдена', content: '<p>Информация отсутствует.</p>' }
+    } finally {
+        loading.value = false
+    }
 }
+
+onMounted(() => fetchPage(route.params.slug))
+watch(() => route.params.slug, fetchPage)
+
+const goBack = () => window.history.back()
 </script>
 
 <style scoped>
