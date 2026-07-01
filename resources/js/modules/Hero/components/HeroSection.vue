@@ -442,8 +442,6 @@ const scrollToMembership = () => {
         overflow-wrap: break-word;
     }
 
-    .hero__title br { display: none; }
-
     .hero__subtitle {
         font-size: 14px;
         margin-bottom: 24px;
