@@ -1,0 +1,1 @@
+var e=e=>e?new Date(e).toLocaleDateString(`ru-RU`,{day:`numeric`,month:`long`,year:`numeric`}):``;export{e as t};

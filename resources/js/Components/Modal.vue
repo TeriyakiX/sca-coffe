@@ -73,7 +73,6 @@ const maxWidthClass = computed(() => {
     }[props.maxWidth];
 });
 </script>
-
 <template>
     <dialog
         class="z-50 m-0 min-h-full min-w-full overflow-y-auto bg-transparent backdrop:bg-transparent"
@@ -101,7 +100,6 @@ const maxWidthClass = computed(() => {
                     />
                 </div>
             </Transition>
-
             <Transition
                 enter-active-class="ease-out duration-300"
                 enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"

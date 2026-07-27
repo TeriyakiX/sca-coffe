@@ -23,7 +23,6 @@ const proxyChecked = computed({
     },
 });
 </script>
-
 <template>
     <input
         type="checkbox"

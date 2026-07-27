@@ -28,19 +28,15 @@ const submit = () => {
     });
 };
 </script>
-
 <template>
     <GuestLayout>
         <Head title="Log in" />
-
         <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
         </div>
-
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />
-
                 <TextInput
                     id="email"
                     type="email"
@@ -50,13 +46,10 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
-
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
-
                 <TextInput
                     id="password"
                     type="password"
@@ -65,10 +58,8 @@ const submit = () => {
                     required
                     autocomplete="current-password"
                 />
-
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
-
             <div class="mt-4 block">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
@@ -77,7 +68,6 @@ const submit = () => {
                     >
                 </label>
             </div>
-
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
@@ -86,7 +76,6 @@ const submit = () => {
                 >
                     Forgot your password?
                 </Link>
-
                 <PrimaryButton
                     class="ms-4"
                     :class="{ 'opacity-25': form.processing }"

@@ -3,7 +3,6 @@
         <div class="loader__spinner"></div>
     </div>
 </template>
-
 <style scoped>
 .loader {
     display: inline-block;

@@ -1,4 +1,3 @@
-<!-- resources/js/shared/components/ui/VButton.vue -->
 <template>
     <button
         :class="[
@@ -14,7 +13,6 @@
         <slot>{{ label }}</slot>
     </button>
 </template>
-
 <script setup>
 const props = defineProps({
     label: { type: String, default: '' },
@@ -35,7 +33,6 @@ const props = defineProps({
 
 defineEmits(['click'])
 </script>
-
 <style scoped>
 .btn {
     display: inline-flex;

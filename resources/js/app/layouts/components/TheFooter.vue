@@ -1,83 +1,33 @@
 <template>
     <footer class="footer">
         <div class="container">
-            <div class="footer__grid">
-
-                <!-- Колонка 1: Сведения об образовательной организации -->
-                <div class="footer__col">
-                    <button class="footer__col-title" @click="toggle(0)" :class="{ 'is-open': open[0] }">
-                        <span>Сведения об образовательной организации</span>
-                        <svg class="footer__col-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <div class="footer__cols">
+                <div v-for="(group, i) in columns" :key="group.title" class="footer__col">
+                    <button
+                        class="footer__col-title"
+                        :class="{ 'is-open': open[i] }"
+                        type="button"
+                        @click="toggle(i)"
+                    >
+                        <span>{{ group.title }}</span>
+                        <svg class="footer__caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                     </button>
-                    <transition name="footer-accordion">
-                        <ul class="footer__col-links" v-show="open[0] || !isMobile">
-                            <li><a href="/page/about"      class="footer__link">Основные сведения</a></li>
-                            <li><a href="/page/structure"  class="footer__link">Структура и органы управления</a></li>
-                            <li><a href="/page/documents"  class="footer__link">Документы</a></li>
-                            <li><a href="/page/education"  class="footer__link">Образование</a></li>
-                            <li><a href="/page/standards"  class="footer__link">Образовательные стандарты</a></li>
-                        </ul>
-                    </transition>
-                </div>
 
-                <!-- Колонка 2: Руководство -->
-                <div class="footer__col">
-                    <button class="footer__col-title" @click="toggle(1)" :class="{ 'is-open': open[1] }">
-                        <span>Руководство</span>
-                        <svg class="footer__col-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <transition name="footer-accordion">
-                        <ul class="footer__col-links" v-show="open[1] || !isMobile">
-                            <li><a href="/page/management"         class="footer__link">Руководство. Педагогический состав</a></li>
-                            <li><a href="/page/material-technical" class="footer__link">Материально-техническое обеспечение</a></li>
-                            <li><a href="/page/career-center"      class="footer__link">Центр карьеры и оценки</a></li>
-                        </ul>
-                    </transition>
+                    <ul v-show="open[i] || !isMobile" class="footer__links">
+                        <li v-for="link in group.links" :key="link.to">
+                            <RouterLink :to="link.to" class="footer__link">{{ link.label }}</RouterLink>
+                        </li>
+                    </ul>
                 </div>
-
-                <!-- Колонка 3: Услуги и поддержка -->
-                <div class="footer__col">
-                    <button class="footer__col-title" @click="toggle(2)" :class="{ 'is-open': open[2] }">
-                        <span>Услуги и поддержка</span>
-                        <svg class="footer__col-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <transition name="footer-accordion">
-                        <ul class="footer__col-links" v-show="open[2] || !isMobile">
-                            <li><a href="/page/scholarships"  class="footer__link">Стипендии и поддержка</a></li>
-                            <li><a href="/page/paid-services" class="footer__link">Платные образовательные услуги</a></li>
-                            <li><a href="/page/finance"       class="footer__link">Финансово-хозяйственная деятельность</a></li>
-                        </ul>
-                    </transition>
-                </div>
-
-                <!-- Колонка 4: Контакты -->
-                <div class="footer__col">
-                    <button class="footer__col-title" @click="toggle(3)" :class="{ 'is-open': open[3] }">
-                        <span>Контакты</span>
-                        <svg class="footer__col-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <transition name="footer-accordion">
-                        <ul class="footer__col-links" v-show="open[3] || !isMobile">
-                            <li><a href="/page/vacancies"  class="footer__link">Вакантные места</a></li>
-                            <li><a href="/page/nutrition"  class="footer__link">Организация питания</a></li>
-                        </ul>
-                    </transition>
-                </div>
-
             </div>
 
             <div class="footer__bottom">
                 <p class="footer__copyright">
-                    © 2024 Ассоциация специалистов и производителей кофейной и чайной индустрии.
+                    © {{ year }} Ассоциация специалистов кофейной и чайной индустрии России
                 </p>
+                <a href="mailto:academybarista@ya.ru" class="footer__mail">academybarista@ya.ru</a>
             </div>
         </div>
     </footer>
@@ -85,13 +35,54 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink } from 'vue-router'
 
-// Состояния аккордеона: 4 колонки, все закрыты по умолчанию
-const open = ref([false, false, false, false])
+const year = new Date().getFullYear()
 const isMobile = ref(false)
+
+const columns = [
+    {
+        title: 'Ассоциация',
+        links: [
+            { to: '/association', label: 'Об Ассоциации' },
+            { to: '/standards', label: 'Профстандарты' },
+            { to: '/registries', label: 'Реестры' },
+            { to: '/news', label: 'Новости и события' },
+        ],
+    },
+    {
+        title: 'Участникам',
+        links: [
+            { to: '/membership', label: 'Членство' },
+            { to: '/membership/join', label: 'Анкета вступления' },
+            { to: '/partners', label: 'Партнёры' },
+            { to: '/contacts', label: 'Контакты' },
+        ],
+    },
+    {
+        title: 'Обучение',
+        links: [
+            { to: '/education', label: 'Обучение и квалификации' },
+            { to: '/accreditation', label: 'Аккредитация' },
+            { to: '/accreditation/apply', label: 'Заявка на аккредитацию' },
+        ],
+    },
+    {
+        title: 'Сведения об организации',
+        links: [
+            { to: '/info', label: 'Все разделы' },
+            { to: '/page/about', label: 'Основные сведения' },
+            { to: '/page/documents', label: 'Документы' },
+            { to: '/page/education', label: 'Образование' },
+        ],
+    },
+]
+
+const open = ref(columns.map(() => false))
 
 const toggle = (i) => {
     if (!isMobile.value) return
+
     open.value[i] = !open.value[i]
 }
 
@@ -113,200 +104,119 @@ onUnmounted(() => {
 .footer {
     background: #1a1a1a;
     color: #fff;
-    padding: 48px 0 24px;
-    margin-top: 60px;
-    overflow: hidden;
+    padding: 52px 0 24px;
+    overflow-x: hidden;
 }
 
-.footer__grid {
+.footer__cols {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
     padding-bottom: 32px;
 }
 
-/* ============================================
-   ЗАГОЛОВОК КОЛОНКИ
-   ============================================ */
 .footer__col-title {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 0 0 16px;
-    color: #fff;
+    padding: 0;
+    margin-bottom: 16px;
     background: none;
     border: none;
-    padding: 0;
-    cursor: default;
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: rgba(255, 255, 255, 0.45);
     text-align: left;
-    font-family: inherit;
-    line-height: 1.3;
+    cursor: default;
 }
 
-.footer__col-caret {
-    flex-shrink: 0;
-    margin-top: 2px;
-    opacity: 0;
-    transition: transform 0.28s ease;
-}
+.footer__caret { display: none; }
 
-.footer__col-title.is-open .footer__col-caret {
-    transform: rotate(180deg);
-}
-
-/* ============================================
-   ССЫЛКИ
-   ============================================ */
-.footer__col-links {
+.footer__links {
     list-style: none;
-    padding: 0;
+    display: grid;
+    gap: 11px;
     margin: 0;
-    overflow: hidden;
-}
-
-.footer__col-links li {
-    margin-bottom: 8px;
+    padding: 0;
 }
 
 .footer__link {
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s;
-    line-height: 1.4;
-    display: block;
+    transition: color 0.2s ease;
 }
 
-.footer__link:hover {
-    color: #fff;
-}
+.footer__link:hover { color: var(--color-primary-light); }
 
-/* ============================================
-   АККОРДЕОН АНИМАЦИЯ
-   ============================================ */
-.footer-accordion-enter-active,
-.footer-accordion-leave-active {
-    transition: max-height 0.32s ease, opacity 0.28s ease;
-    max-height: 400px;
-}
-
-.footer-accordion-enter-from,
-.footer-accordion-leave-to {
-    max-height: 0 !important;
-    opacity: 0;
-}
-
-/* ============================================
-   НИЗ ФУТЕРА
-   ============================================ */
 .footer__bottom {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 16px;
-    padding-top: 24px;
+    flex-wrap: wrap;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer__copyright {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.45);
     margin: 0;
 }
 
-/* ============================================
-   АДАПТИВ — 1024px
-   ============================================ */
-@media (max-width: 1024px) {
-    .footer { padding: 40px 0 20px; }
-    .footer__grid { gap: 30px; }
+.footer__mail {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary-light);
+    text-decoration: none;
 }
 
-/* ============================================
-   АДАПТИВ — 768px (аккордеон включается)
-   ============================================ */
+.footer__mail:hover { color: #fff; }
+
+@media (max-width: 1024px) {
+    .footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+}
+
 @media (max-width: 768px) {
-    .footer {
-        padding: 36px 0 20px;
-        margin-top: 40px;
-    }
+    .footer { padding: 34px 0 20px; }
 
-    .footer__grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-        padding-bottom: 8px;
-    }
+    .footer__cols { grid-template-columns: 1fr; gap: 0; padding-bottom: 18px; }
 
-    .footer__col {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
+    .footer__col + .footer__col { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 
-    /* на мобилке заголовок колонки становится кликабельным */
     .footer__col-title {
-        cursor: pointer;
-        padding: 16px 0;
+        padding: 15px 0;
         margin-bottom: 0;
-        font-size: 13px;
-        align-items: center;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 12.5px;
     }
 
-    .footer__col-caret {
-        opacity: 1; /* показываем каретку */
+    .footer__caret {
+        display: block;
+        flex-shrink: 0;
+        transition: transform 0.25s ease;
     }
 
-    .footer__col-links {
-        padding-bottom: 8px;
-    }
+    .footer__col-title.is-open .footer__caret { transform: rotate(180deg); }
 
-    .footer__col-links li {
-        margin-bottom: 10px;
-    }
-
-    .footer__link {
-        font-size: 13px;
-    }
+    .footer__links { padding: 0 0 16px; gap: 13px; }
 
     .footer__bottom {
         flex-direction: column;
         align-items: center;
         text-align: center;
         gap: 10px;
-        padding-top: 20px;
+        padding-top: 18px;
+        margin-top: 14px;
     }
 
-    .footer__copyright {
-        font-size: 12px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer {
-        padding: 32px 0 16px;
-        margin-top: 30px;
-    }
-
-    .footer__col-title {
-        font-size: 12px;
-        padding: 14px 0;
-    }
-
-    .footer__link {
-        font-size: 12px;
-    }
-
-    .footer__bottom {
-        padding-top: 16px;
-    }
-
-    .footer__copyright {
-        font-size: 11px;
-    }
+    .footer__copyright { font-size: 12.5px; }
 }
 </style>

@@ -13,7 +13,6 @@
         </video>
     </div>
 </template>
-
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
@@ -61,7 +60,6 @@ onMounted(() => {
             observer.observe(containerRef.value)
         }
     } else {
-        // fallback
         if (videoRef.value) {
             videoRef.value.load()
             videoRef.value.play().catch(() => {})
@@ -81,7 +79,6 @@ onUnmounted(() => {
     }
 })
 </script>
-
 <style scoped>
 .lazy-video {
     width: 100%;

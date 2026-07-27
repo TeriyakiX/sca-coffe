@@ -6,7 +6,6 @@ defineProps({
     },
 });
 </script>
-
 <template>
     <button
         :type="type"
