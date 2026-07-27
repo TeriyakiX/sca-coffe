@@ -58,6 +58,10 @@ defineProps({
     text-transform: uppercase;
     letter-spacing: 0.8px;
     color: var(--color-primary);
+    /* min-width: 0 снимает авто-минимум flex-элемента, anywhere уменьшает
+       min-content — иначе длинная строка без пробелов распирает карточку */
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .news-card__date {
