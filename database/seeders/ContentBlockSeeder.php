@@ -6,10 +6,13 @@ namespace Database\Seeders;
 
 use App\Enums\Content\ContentSectionEnum;
 use App\Models\ContentBlock;
+use Database\Seeders\Concerns\UpsertsSoftDeleted;
 use Illuminate\Database\Seeder;
 
 final class ContentBlockSeeder extends Seeder
 {
+    use UpsertsSoftDeleted;
+
     public final function run(): void
     {
         $sort = 0;
@@ -17,7 +20,8 @@ final class ContentBlockSeeder extends Seeder
         foreach ($this->blocks() as $block) {
             $sort += 10;
 
-            ContentBlock::query()->updateOrCreate(
+            $this->upsertRecord(
+                ContentBlock::class,
                 [ContentBlock::KEY => $block[ContentBlock::KEY]],
                 $block + [ContentBlock::SORT_ORDER => $sort],
             );

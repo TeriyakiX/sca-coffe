@@ -7,14 +7,17 @@ namespace Database\Seeders;
 use App\Enums\Event\EventTypeEnum;
 use App\Enums\General\PublicationStatusEnum;
 use App\Models\Event;
+use Database\Seeders\Concerns\UpsertsSoftDeleted;
 use Illuminate\Database\Seeder;
 
 final class EventSeeder extends Seeder
 {
+    use UpsertsSoftDeleted;
+
     public final function run(): void
     {
         foreach ($this->items() as $item) {
-            Event::query()->updateOrCreate([Event::SLUG => $item[Event::SLUG]], $item);
+            $this->upsertRecord(Event::class, [Event::SLUG => $item[Event::SLUG]], $item);
         }
     }
 

@@ -6,10 +6,13 @@ namespace Database\Seeders;
 
 use App\Enums\General\PublicationStatusEnum;
 use App\Models\Page;
+use Database\Seeders\Concerns\UpsertsSoftDeleted;
 use Illuminate\Database\Seeder;
 
 final class PageSeeder extends Seeder
 {
+    use UpsertsSoftDeleted;
+
     /**
      * Раздел 25 документа: страницы убираются с сайта.
      * Не удаляем строки, а переводим в архив — данные остаются, публикация прекращается.
@@ -22,7 +25,8 @@ final class PageSeeder extends Seeder
     public final function run(): void
     {
         foreach ($this->items() as $index => $item) {
-            Page::query()->updateOrCreate(
+            $this->upsertRecord(
+                Page::class,
                 [Page::SLUG => $item[Page::SLUG]],
                 $item + [
                     Page::STATUS => PublicationStatusEnum::PUBLISHED->value,

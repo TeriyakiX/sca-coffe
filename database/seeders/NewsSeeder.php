@@ -7,14 +7,17 @@ namespace Database\Seeders;
 use App\Enums\General\PublicationStatusEnum;
 use App\Enums\News\NewsCategoryEnum;
 use App\Models\News;
+use Database\Seeders\Concerns\UpsertsSoftDeleted;
 use Illuminate\Database\Seeder;
 
 final class NewsSeeder extends Seeder
 {
+    use UpsertsSoftDeleted;
+
     public final function run(): void
     {
         foreach ($this->items() as $item) {
-            News::query()->updateOrCreate([News::SLUG => $item[News::SLUG]], $item);
+            $this->upsertRecord(News::class, [News::SLUG => $item[News::SLUG]], $item);
         }
     }
 
