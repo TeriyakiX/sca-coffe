@@ -10,7 +10,7 @@
                         Вступить в ассоциацию
                     </RouterLink>
                     <RouterLink to="/accreditation/apply" class="btn btn--lg btn--outline">
-                        Подать заявку на аккредитацию
+                        Подать предварительную заявку
                     </RouterLink>
                 </div>
             </div>

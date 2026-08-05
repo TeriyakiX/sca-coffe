@@ -29,6 +29,9 @@ final class MembershipApplication extends Model
     public final const string CITY = 'city';
     public final const string COMPANY = 'company';
     public final const string ABOUT = 'about';
+    public final const string EXPERT_INTEREST = 'expert_interest';
+    public final const string CONSENT_AT = 'consent_at';
+    public final const string MARKETING_CONSENT = 'marketing_consent';
     public final const string MANAGER_COMMENT = 'manager_comment';
     public final const string PROCESSED_AT = 'processed_at';
     public final const string CREATED_AT = 'created_at';
@@ -47,6 +50,9 @@ final class MembershipApplication extends Model
         self::CITY,
         self::COMPANY,
         self::ABOUT,
+        self::EXPERT_INTEREST,
+        self::CONSENT_AT,
+        self::MARKETING_CONSENT,
         self::MANAGER_COMMENT,
         self::PROCESSED_AT,
     ];
@@ -61,6 +67,9 @@ final class MembershipApplication extends Model
             self::CATEGORY => MembershipCategoryEnum::class,
             self::SPECIALIZATION => MembershipSpecializationEnum::class,
             self::STATUS => ApplicationStatusEnum::class,
+            self::EXPERT_INTEREST => 'boolean',
+            self::MARKETING_CONSENT => 'boolean',
+            self::CONSENT_AT => 'datetime',
             self::PROCESSED_AT => 'datetime',
             self::CREATED_AT => 'datetime',
             self::UPDATED_AT => 'datetime',

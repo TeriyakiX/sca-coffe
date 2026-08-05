@@ -14,8 +14,10 @@
                 </div>
             </div>
         </VContentSection>
-        <VContentSection tag="Партнёры" title="Партнёры Ассоциации">
-            <div v-if="partners.length" class="grid-3">
+        <!-- Раздел 5.1 правок: пустой блок партнёров не показываем,
+             появится сам, когда будут подтверждённые компании -->
+        <VContentSection v-if="partners.length" tag="Партнёры" title="Партнёры Ассоциации">
+            <div class="grid-3">
                 <div v-for="p in partners" :key="p.id" class="card">
                     <span class="card__label">{{ p.category_label }}</span>
                     <h3 class="card__title">{{ p.name }}</h3>
@@ -26,7 +28,6 @@
                     </a>
                 </div>
             </div>
-            <p v-else class="status-note">Раздел находится в стадии формирования</p>
         </VContentSection>
         <VContentSection alt tag="Партнёрство" :title="block('partners.become-steps').title">
             <VSteps :items="items('partners.become-steps')" />

@@ -33,7 +33,10 @@ final readonly class ContactRequestRepository
             ContactRequest::TOPIC => $dto->topic,
             ContactRequest::NAME => $dto->name,
             ContactRequest::EMAIL => $dto->email,
+            ContactRequest::PHONE => $dto->phone,
             ContactRequest::MESSAGE => $dto->message,
+            ContactRequest::CONSENT_AT => now(),
+            ContactRequest::MARKETING_CONSENT => $dto->marketingConsent,
         ]);
     }
 

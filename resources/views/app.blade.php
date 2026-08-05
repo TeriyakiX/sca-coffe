@@ -5,7 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SCA Coffee') }}</title>
+    {{-- Мета отдаются сервером: поисковики и мессенджеры не выполняют JS,
+         поэтому заголовок, который проставляет роутер, им недоступен --}}
+    <title>{{ $meta['title'] }}</title>
+    <meta name="description" content="{{ $meta['description'] }}">
+    <link rel="canonical" href="{{ $meta['url'] }}">
+
+    <meta property="og:type" content="{{ $meta['type'] }}">
+    <meta property="og:site_name" content="{{ $meta['site_name'] }}">
+    <meta property="og:title" content="{{ $meta['title'] }}">
+    <meta property="og:description" content="{{ $meta['description'] }}">
+    <meta property="og:url" content="{{ $meta['url'] }}">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="{{ url('/images/logo.svg') }}">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $meta['title'] }}">
+    <meta name="twitter:description" content="{{ $meta['description'] }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

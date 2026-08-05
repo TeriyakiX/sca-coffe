@@ -14,7 +14,7 @@
                     </div>
                     <div class="contacts__item">
                         <span class="contacts__label">По вопросам аккредитации</span>
-                        <RouterLink to="/accreditation/apply" class="contacts__value">Заявка на аккредитацию</RouterLink>
+                        <RouterLink to="/accreditation/apply" class="contacts__value">Предварительная заявка на аккредитацию</RouterLink>
                     </div>
                     <div class="contacts__item">
                         <span class="contacts__label">Партнёрство</span>
@@ -27,11 +27,24 @@
                         <VFormField v-model="form.topic" label="Тема обращения" type="select" :options="topics" :error="errors.topic" required wide />
                         <VFormField v-model="form.name" label="Имя / организация" :error="errors.name" required />
                         <VFormField v-model="form.email" label="Email" type="email" :error="errors.email" required />
+                        <VFormField v-model="form.phone" label="Телефон" type="tel" hint="Необязательно" :error="errors.phone" />
                         <VFormField v-model="form.message" label="Сообщение" type="textarea" :error="errors.message" required wide />
                     </div>
                     <label class="contacts__consent">
                         <input v-model="consent" type="checkbox" required />
-                        <span>Согласен на обработку персональных данных.</span>
+                        <span>
+                            Согласен на обработку персональных данных в соответствии с
+                            <RouterLink to="/page/privacy" target="_blank" class="contacts__consent-link">
+                                политикой обработки персональных данных
+                            </RouterLink>.
+                        </span>
+                    </label>
+                    <label class="contacts__consent">
+                        <input v-model="marketingConsent" type="checkbox" />
+                        <span>
+                            Согласен получать информационные материалы Ассоциации.
+                            <em class="contacts__consent-note">Необязательно, можно отозвать в любой момент.</em>
+                        </span>
                     </label>
                     <p v-if="formError" class="contacts__error">{{ formError }}</p>
                     <button type="submit" class="btn btn--primary contacts__submit" :disabled="!consent || sending">
@@ -71,12 +84,13 @@ const topics = [
     { value: 'other', label: 'Другое' },
 ]
 
-const emptyForm = () => ({ topic: '', name: '', email: '', message: '' })
+const emptyForm = () => ({ topic: '', name: '', email: '', phone: '', message: '' })
 
 const form = reactive(emptyForm())
 const errors = ref({})
 const formError = ref('')
 const consent = ref(false)
+const marketingConsent = ref(false)
 const sending = ref(false)
 const sent = ref(false)
 
@@ -88,7 +102,11 @@ const submit = async () => {
     formError.value = ''
 
     try {
-        await sendContactRequest(form)
+        await sendContactRequest({
+            ...form,
+            personal_data_consent: consent.value,
+            marketing_consent: marketingConsent.value,
+        })
 
         sent.value = true
     } catch (e) {
@@ -106,6 +124,7 @@ const submit = async () => {
 const reset = () => {
     Object.assign(form, emptyForm())
     consent.value = false
+    marketingConsent.value = false
     sent.value = false
 }
 </script>
@@ -170,6 +189,19 @@ const reset = () => {
 }
 
 .contacts__consent input { margin-top: 3px; }
+
+.contacts__consent-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.contacts__consent-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--color-gray);
+}
 .contacts__submit { margin-top: 20px; }
 .contacts__note { margin: 14px 0 22px; font-size: 13.5px; color: var(--color-gray); }
 .contacts__error { margin: 14px 0 0; font-size: 14px; color: var(--color-error); }

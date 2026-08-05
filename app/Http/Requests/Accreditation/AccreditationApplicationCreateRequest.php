@@ -30,6 +30,11 @@ final class AccreditationApplicationCreateRequest extends FormRequest
             'site_url' => ['nullable', 'string', 'url', 'max:2048'],
             'programs' => ['nullable', 'string', 'max:3000'],
             'facilities' => ['nullable', 'string', 'max:3000'],
+            'experience' => ['nullable', 'string', 'between:1,55'],
+            'trainers_count' => ['nullable', 'integer', 'between:0,1000'],
+            'comment' => ['nullable', 'string', 'max:2000'],
+            'personal_data_consent' => ['required', 'accepted'],
+            'marketing_consent' => ['sometimes', 'boolean'],
         ];
     }
 
@@ -47,6 +52,10 @@ final class AccreditationApplicationCreateRequest extends FormRequest
             site_url: $this->validated('site_url'),
             programs: $this->validated('programs'),
             facilities: $this->validated('facilities'),
+            experience: $this->validated('experience'),
+            trainers_count: $this->validated('trainers_count'),
+            comment: $this->validated('comment'),
+            marketingConsent: $this->boolean('marketing_consent'),
         );
     }
 }

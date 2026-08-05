@@ -24,6 +24,7 @@ final class News extends Model
     public final const string STATUS = 'status';
     public final const string TITLE = 'title';
     public final const string EXCERPT = 'excerpt';
+    public final const string AUTHOR = 'author';
     public final const string CONTENT = 'content';
     public final const string COVER_URL = 'cover_url';
     public final const string PUBLISHED_AT = 'published_at';
@@ -39,6 +40,7 @@ final class News extends Model
         self::STATUS,
         self::TITLE,
         self::EXCERPT,
+        self::AUTHOR,
         self::CONTENT,
         self::COVER_URL,
         self::PUBLISHED_AT,

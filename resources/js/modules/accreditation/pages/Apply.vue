@@ -2,7 +2,7 @@
     <MainLayout>
         <VPageHero
             eyebrow="Аккредитация"
-            title="Заявка на аккредитацию"
+            title="Предварительная заявка на аккредитацию"
             subtitle="Заполните заявку — Ассоциация проверит данные, уточнит комплект документов и направит порядок прохождения процедуры."
         />
         <VContentSection alt>
@@ -34,10 +34,45 @@
                             :error="errors.facilities"
                             wide
                         />
+                        <VFormField
+                            v-model="form.experience"
+                            label="Опыт работы в обучении"
+                            type="select"
+                            :options="experienceOptions"
+                            :error="errors.experience"
+                        />
+                        <VFormField
+                            v-model="form.trainers_count"
+                            label="Количество преподавателей"
+                            type="number"
+                            placeholder="Например: 4"
+                            :error="errors.trainers_count"
+                        />
+                        <VFormField
+                            v-model="form.comment"
+                            label="Дополнительный комментарий"
+                            type="textarea"
+                            placeholder="Что важно знать Ассоциации при рассмотрении заявки"
+                            :error="errors.comment"
+                            wide
+                        />
                     </div>
                     <label class="apply__consent">
                         <input v-model="consent" type="checkbox" required />
-                        <span>Согласен на обработку персональных данных и передачу сведений для рассмотрения заявки.</span>
+                        <span>
+                            Согласен на обработку персональных данных и передачу сведений для рассмотрения заявки
+                            в соответствии с
+                            <RouterLink to="/page/privacy" target="_blank" class="apply__consent-link">
+                                политикой обработки персональных данных
+                            </RouterLink>.
+                        </span>
+                    </label>
+                    <label class="apply__consent apply__consent--optional">
+                        <input v-model="marketingConsent" type="checkbox" />
+                        <span>
+                            Согласен получать информационные материалы Ассоциации.
+                            <em class="apply__consent-note">Необязательно, можно отозвать в любой момент.</em>
+                        </span>
                     </label>
                     <p v-if="formError" class="apply__error">{{ formError }}</p>
                     <button type="submit" class="btn btn--primary apply__submit" :disabled="!consent || sending">
@@ -46,9 +81,10 @@
                 </form>
                 <div v-else class="apply__done">
                     <VIcon name="check" size="large" />
-                    <h2 class="apply__done-title">Заявка отправлена</h2>
+                    <h2 class="apply__done-title">Предварительная заявка принята</h2>
                     <p class="apply__done-text">
-                        Ассоциация проверит данные и свяжется с вами по указанным контактам.
+                        Ваш контакт сохранён. Ассоциация свяжется с вами после утверждения требований
+                        и сообщит дальнейшие шаги. Отправка заявки не предоставляет статус аккредитованного центра.
                     </p>
                     <button class="btn btn--outline" @click="reset">Отправить ещё одну</button>
                 </div>
@@ -65,6 +101,7 @@
 </template>
 <script setup>
 import { computed, reactive, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import MainLayout from '@/app/layouts/MainLayout.vue'
 import VPageHero from '@/shared/components/ui/VPageHero.vue'
 import VContentSection from '@/shared/components/ui/VContentSection.vue'
@@ -77,6 +114,14 @@ import { sendAccreditationApplication } from '@/shared/api/catalog'
 import { extractErrors } from '@/shared/api/http'
 
 const { block, items } = useContentBlocks('accreditation')
+
+const experienceOptions = [
+    { value: 'less-1', label: 'Менее года' },
+    { value: '1-3', label: 'От 1 до 3 лет' },
+    { value: '3-5', label: 'От 3 до 5 лет' },
+    { value: '5-10', label: 'От 5 до 10 лет' },
+    { value: '10+', label: 'Более 10 лет' },
+]
 
 const types = [
     { value: 'training-center', label: 'Аккредитация учебного центра' },
@@ -96,12 +141,16 @@ const emptyForm = () => ({
     site_url: '',
     programs: '',
     facilities: '',
+    experience: '',
+    trainers_count: '',
+    comment: '',
 })
 
 const form = reactive(emptyForm())
 const errors = ref({})
 const formError = ref('')
 const consent = ref(false)
+const marketingConsent = ref(false)
 const sending = ref(false)
 const sent = ref(false)
 
@@ -113,7 +162,12 @@ const submit = async () => {
     formError.value = ''
 
     try {
-        await sendAccreditationApplication(form)
+        await sendAccreditationApplication({
+            ...form,
+            trainers_count: form.trainers_count === '' ? null : Number(form.trainers_count),
+            personal_data_consent: consent.value,
+            marketing_consent: marketingConsent.value,
+        })
 
         sent.value = true
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -132,6 +186,7 @@ const submit = async () => {
 const reset = () => {
     Object.assign(form, emptyForm())
     consent.value = false
+    marketingConsent.value = false
     sent.value = false
 }
 </script>
@@ -160,6 +215,21 @@ const reset = () => {
 }
 
 .apply__consent input { margin-top: 3px; flex-shrink: 0; }
+
+.apply__consent-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.apply__consent--optional { margin-top: 12px; }
+
+.apply__consent-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--color-gray);
+}
 
 .apply__submit { margin-top: 22px; }
 .apply__error { margin: 16px 0 0; font-size: 14px; color: var(--color-error); }

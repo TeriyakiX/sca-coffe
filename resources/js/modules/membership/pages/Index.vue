@@ -19,6 +19,12 @@
                     <p class="card__text">{{ b.text }}</p>
                 </div>
             </div>
+            <!-- Будущие возможности отделены от действующих: обещать их
+                 как уже доступные нельзя (правило статусов документа) -->
+            <div v-if="items('membership.upcoming').length" class="membership__upcoming">
+                <h3 class="membership__upcoming-title">{{ block('membership.upcoming').title }}</h3>
+                <VCheckList :items="titles('membership.upcoming')" />
+            </div>
         </VContentSection>
         <VContentSection alt tag="Категории" :title="block('membership.tiers').title">
             <div class="grid-4">
@@ -101,6 +107,20 @@ const titles = (key) => items(key).map((i) => i.title)
     margin: 24px 0 0;
     font-size: 14.5px;
     color: var(--color-gray);
+}
+
+.membership__upcoming {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--color-bg);
+    border: 1px dashed rgba(0, 0, 0, 0.14);
+    border-radius: var(--radius);
+}
+
+.membership__upcoming-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 14px;
 }
 
 .faq { display: grid; gap: 10px; }

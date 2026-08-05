@@ -11,6 +11,7 @@ final readonly class NewsCreateDto
         public string      $slug,
         public string      $category,
         public string      $excerpt,
+        public string|null $author = null,
         public string|null $content = null,
         public string|null $cover_url = null,
         public string|null $status = null,

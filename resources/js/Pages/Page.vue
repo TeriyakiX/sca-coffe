@@ -7,7 +7,7 @@
         </VPageHero>
 
         <VContentSection alt>
-            <article v-if="!loading" class="page-content" v-html="page.content"></article>
+            <article v-if="!loading" v-internal-links class="page-content" v-html="page.content"></article>
             <p v-else class="status-note">Загружаем страницу…</p>
 
             <div class="btn-group page-nav">
@@ -39,6 +39,11 @@ const load = async (slug) => {
         page.value = { title: 'Страница не найдена', content: '<p>Информация отсутствует.</p>' }
     } finally {
         loading.value = false
+    }
+
+    // У маршрута страницы нет своего meta.title — берём его из загруженных данных
+    if (page.value?.title) {
+        document.title = `${page.value.title} — Ассоциация специалистов кофейной и чайной индустрии России`
     }
 }
 

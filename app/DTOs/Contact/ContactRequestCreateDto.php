@@ -11,6 +11,8 @@ final readonly class ContactRequestCreateDto
         public string $name,
         public string $email,
         public string $message,
+        public string|null $phone = null,
+        public bool   $marketingConsent = false,
     )
     {
     }

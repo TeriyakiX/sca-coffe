@@ -8,6 +8,7 @@ const Page = () => import('@/Pages/Page.vue')
 
 const AssociationIndex = () => import('@/modules/association/pages/Index.vue')
 const StandardsIndex = () => import('@/modules/standards/pages/Index.vue')
+const StandardsWorkingGroup = () => import('@/modules/standards/pages/WorkingGroup.vue')
 const MembershipIndex = () => import('@/modules/membership/pages/Index.vue')
 const MembershipJoin = () => import('@/modules/membership/pages/Join.vue')
 const AccreditationIndex = () => import('@/modules/accreditation/pages/Index.vue')
@@ -35,6 +36,7 @@ const routes = [
 
     { path: '/association', name: 'association', component: AssociationIndex, meta: { title: 'Об Ассоциации' } },
     { path: '/standards', name: 'standards', component: StandardsIndex, meta: { title: 'Профессиональные стандарты' } },
+    { path: '/standards/working-group', name: 'standards.working-group', component: StandardsWorkingGroup, meta: { title: 'Заявка в рабочую группу' } },
     { path: '/membership', name: 'membership', component: MembershipIndex, meta: { title: 'Членство в Ассоциации' } },
     { path: '/membership/join', name: 'membership.join', component: MembershipJoin, meta: { title: 'Анкета вступления' } },
     { path: '/accreditation', name: 'accreditation', component: AccreditationIndex, meta: { title: 'Аккредитация учебных центров' } },
@@ -63,6 +65,10 @@ const routes = [
 
     { path: '/about', redirect: '/association' },
     { path: '/business', redirect: '/partners' },
+
+    // Раздел 25 документа: старые страницы-дубли уводим на профильные разделы
+    { path: '/page/education', redirect: '/education' },
+    { path: '/page/standards', redirect: '/standards' },
 
     { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
@@ -94,8 +100,26 @@ router.beforeEach(async (to) => {
 
 const BASE_TITLE = 'Ассоциация специалистов кофейной и чайной индустрии России'
 
+let firstNavigation = true
+
 router.afterEach((to) => {
-    document.title = to.meta?.title ? `${to.meta.title} — ${BASE_TITLE}` : BASE_TITLE
+    const isFirst = firstNavigation
+
+    firstNavigation = false
+
+    if (to.meta?.title) {
+        document.title = `${to.meta.title} — ${BASE_TITLE}`
+
+        return
+    }
+
+    // У новостей и страниц заголовок приходит с сервера и точнее общего —
+    // на первой загрузке не затираем его, дальше страница выставит сама
+    if (isFirst) {
+        return
+    }
+
+    document.title = BASE_TITLE
 })
 
 export default router

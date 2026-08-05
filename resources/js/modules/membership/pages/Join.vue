@@ -25,9 +25,31 @@
                             wide
                         />
                     </div>
+                    <label class="join__consent join__consent--optional">
+                        <input v-model="expertInterest" type="checkbox" />
+                        <span>
+                            Хочу участвовать в работе экспертной группы по разработке профессиональных стандартов.
+                            <em class="join__consent-note">
+                                Ассоциация свяжется отдельно и предложит заполнить
+                                <RouterLink to="/standards/working-group" class="join__consent-link">заявку эксперта</RouterLink>.
+                            </em>
+                        </span>
+                    </label>
                     <label class="join__consent">
                         <input v-model="consent" type="checkbox" required />
-                        <span>Согласен на обработку персональных данных и получение информационных материалов Ассоциации.</span>
+                        <span>
+                            Согласен на обработку персональных данных в соответствии с
+                            <RouterLink to="/page/privacy" target="_blank" class="join__consent-link">
+                                политикой обработки персональных данных
+                            </RouterLink>.
+                        </span>
+                    </label>
+                    <label class="join__consent join__consent--optional">
+                        <input v-model="marketingConsent" type="checkbox" />
+                        <span>
+                            Согласен получать информационные материалы Ассоциации.
+                            <em class="join__consent-note">Необязательно, можно отозвать в любой момент.</em>
+                        </span>
                     </label>
                     <p v-if="formError" class="join__error">{{ formError }}</p>
                     <button type="submit" class="btn btn--primary join__submit" :disabled="!consent || sending">
@@ -104,6 +126,8 @@ const form = reactive(emptyForm())
 const errors = ref({})
 const formError = ref('')
 const consent = ref(false)
+const marketingConsent = ref(false)
+const expertInterest = ref(false)
 const sending = ref(false)
 const sent = ref(false)
 
@@ -115,7 +139,12 @@ const submit = async () => {
     formError.value = ''
 
     try {
-        await sendMembershipApplication(form)
+        await sendMembershipApplication({
+            ...form,
+            expert_interest: expertInterest.value,
+            personal_data_consent: consent.value,
+            marketing_consent: marketingConsent.value,
+        })
 
         sent.value = true
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -134,6 +163,8 @@ const submit = async () => {
 const reset = () => {
     Object.assign(form, emptyForm())
     consent.value = false
+    marketingConsent.value = false
+    expertInterest.value = false
     sent.value = false
 }
 </script>
@@ -162,6 +193,21 @@ const reset = () => {
 }
 
 .join__consent input { margin-top: 3px; flex-shrink: 0; }
+
+.join__consent--optional { margin-top: 12px; }
+
+.join__consent-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.join__consent-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--color-gray);
+}
 
 .join__submit { margin-top: 22px; }
 

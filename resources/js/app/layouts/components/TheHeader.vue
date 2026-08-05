@@ -138,19 +138,21 @@ let dropdownTimer = null
 
 const infoPages = ref([])
 
+// Раздел 1 документа: «Реестры» вынесены из «Ещё» в основную навигацию —
+// раздел подчёркивает системность Ассоциации, даже пока реестры формируются.
 const menuItems = [
     { to: '/association',   label: 'Ассоциация' },
     { to: '/standards',     label: 'Профстандарты' },
     { to: '/membership',    label: 'Членство' },
     { to: '/accreditation', label: 'Аккредитация' },
+    { to: '/registries',    label: 'Реестры' },
     { to: '/news',          label: 'Новости' },
 ]
 
 const secondaryItems = [
-    { to: '/education',  label: 'Обучение и квалификации' },
-    { to: '/registries', label: 'Реестры' },
-    { to: '/partners',   label: 'Партнёры' },
-    { to: '/contacts',   label: 'Контакты' },
+    { to: '/education', label: 'Обучение и квалификации' },
+    { to: '/partners',  label: 'Партнёры' },
+    { to: '/contacts',  label: 'Контакты' },
 ]
 
 const allMenuItems = [...menuItems, ...secondaryItems]

@@ -2,7 +2,7 @@
     <MainLayout>
         <VPageHero eyebrow="Аккредитация" :title="block('accreditation.hero').title" :subtitle="block('accreditation.hero').subtitle">
             <template #actions>
-                <RouterLink to="/accreditation/apply" class="btn btn--primary">Подать заявку на аккредитацию</RouterLink>
+                <RouterLink to="/accreditation/apply" class="btn btn--primary">Подать предварительную заявку</RouterLink>
                 <RouterLink to="/standards" class="btn btn--outline">Профессиональные стандарты</RouterLink>
             </template>
         </VPageHero>
@@ -31,7 +31,7 @@
             <p class="acc-page__note">{{ block('accreditation.documents').body }}</p>
 
             <div class="btn-group acc-page__cta">
-                <RouterLink to="/accreditation/apply" class="btn btn--primary">Подать заявку</RouterLink>
+                <RouterLink to="/accreditation/apply" class="btn btn--primary">Подать предварительную заявку</RouterLink>
                 <RouterLink to="/education" class="btn btn--outline">Обучение и квалификации</RouterLink>
             </div>
         </VContentSection>

@@ -24,9 +24,11 @@
                 <span v-for="f in titles('registries.filters')" :key="f" class="chip">{{ f }}</span>
             </div>
 
+            <!-- «Попасть в реестр специалистов» убрано до запуска процедуры оценки:
+                 членство и включение в реестр — разные действия (помета документа) -->
             <div class="registries__actions">
-                <RouterLink to="/membership/join" class="btn btn--primary">Попасть в реестр специалистов</RouterLink>
-                <RouterLink to="/accreditation/apply" class="btn btn--outline">Аккредитовать учебный центр</RouterLink>
+                <RouterLink to="/standards/working-group" class="btn btn--primary">Подать заявку в рабочую группу</RouterLink>
+                <RouterLink to="/accreditation/apply" class="btn btn--outline">Подать предварительную заявку от учебного центра</RouterLink>
             </div>
         </VContentSection>
     </MainLayout>

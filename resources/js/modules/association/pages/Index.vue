@@ -37,7 +37,13 @@
             <VSteps :items="items('association.roadmap')" />
         </VContentSection>
 
-        <VContentSection tag="Команда и документы" :title="block('association.team').title">
+        <!-- Раздел показываем только с реальным составом: пустые карточки
+             «в стадии формирования» публиковать нельзя (помета документа) -->
+        <VContentSection
+            v-if="items('association.team').length"
+            tag="Руководство"
+            :title="block('association.team').title"
+        >
             <div class="grid-2">
                 <div v-for="m in items('association.team')" :key="m.label" class="card">
                     <span class="card__label">{{ m.label }}</span>
@@ -45,8 +51,10 @@
                     <p class="card__text">{{ m.text }}</p>
                 </div>
             </div>
+        </VContentSection>
 
-            <h3 class="split__title association__docs-title">{{ block('association.documents').title }}</h3>
+        <VContentSection tag="Документы" :title="block('association.documents').title">
+            <p class="association__docs-lead">{{ block('association.documents').subtitle }}</p>
             <ul class="docs">
                 <li v-for="d in items('association.documents')" :key="d.title" class="docs__item">
                     <VIcon name="document" size="small" />
@@ -99,7 +107,13 @@ const titles = (key) => items(key).map((i) => i.title)
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.association__docs-title { margin-top: 34px; }
+.association__docs-lead {
+    margin: 0 0 22px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-gray);
+    max-width: 820px;
+}
 
 @media (max-width: 900px) {
     .split { grid-template-columns: 1fr; gap: 14px; }

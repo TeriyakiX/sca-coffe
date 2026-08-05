@@ -28,6 +28,12 @@ final class MembershipApplicationCreateRequest extends FormRequest
             'city' => ['required', 'string', 'between:2,120'],
             'company' => ['nullable', 'string', 'between:2,255'],
             'about' => ['nullable', 'string', 'max:2000'],
+            // Интерес к работе в экспертной группе — отдельный признак заявки
+            'expert_interest' => ['sometimes', 'boolean'],
+            // Обработка персональных данных — обязательное согласие,
+            // подписка на материалы — отдельное и необязательное.
+            'personal_data_consent' => ['required', 'accepted'],
+            'marketing_consent' => ['sometimes', 'boolean'],
         ];
     }
 
@@ -42,6 +48,8 @@ final class MembershipApplicationCreateRequest extends FormRequest
             city: $this->validated('city'),
             company: $this->validated('company'),
             about: $this->validated('about'),
+            expertInterest: $this->boolean('expert_interest'),
+            marketingConsent: $this->boolean('marketing_consent'),
         );
     }
 }

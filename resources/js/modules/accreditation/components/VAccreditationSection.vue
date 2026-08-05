@@ -9,7 +9,7 @@
                 />
                 <div class="btn-group accreditation__actions">
                     <RouterLink to="/accreditation/apply" class="btn btn--primary">
-                        Подать заявку на аккредитацию
+                        Подать предварительную заявку
                     </RouterLink>
                     <RouterLink to="/accreditation" class="btn btn--outline">
                         Требования и этапы

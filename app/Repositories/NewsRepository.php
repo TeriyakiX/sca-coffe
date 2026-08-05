@@ -53,6 +53,7 @@ final readonly class NewsRepository
             News::SLUG => $dto->slug,
             News::CATEGORY => $dto->category,
             News::EXCERPT => $dto->excerpt,
+            News::AUTHOR => $dto->author,
             News::CONTENT => $dto->content,
             News::COVER_URL => $dto->cover_url,
             News::STATUS => $dto->status,

@@ -18,6 +18,10 @@ final readonly class AccreditationApplicationCreateDto
         public string|null $site_url = null,
         public string|null $programs = null,
         public string|null $facilities = null,
+        public string|null $experience = null,
+        public int|null    $trainers_count = null,
+        public string|null $comment = null,
+        public bool        $marketingConsent = false,
     )
     {
     }

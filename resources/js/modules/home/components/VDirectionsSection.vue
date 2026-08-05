@@ -19,7 +19,7 @@
                     <h3 class="direction__title">{{ item.title }}</h3>
                     <p class="direction__text">{{ item.text }}</p>
                     <span class="direction__link">
-                        Подробнее
+                        {{ item.action || 'Подробнее' }}
                         <VIcon name="arrow-right" size="small" />
                     </span>
                 </RouterLink>

@@ -88,6 +88,7 @@ export const newsResource = {
         { key: 'category', label: 'Категория', type: 'select', options: newsCategories, required: true },
         { key: 'status', label: 'Статус', type: 'select', options: publicationStatuses },
         { key: 'excerpt', label: 'Краткое описание', type: 'textarea', required: true },
+        { key: 'author', label: 'Автор или редакция', placeholder: 'Например: Редакция Ассоциации', hint: 'Отображается в материале рядом с датой' },
         { key: 'content', label: 'Полный текст', type: 'textarea' },
         { key: 'cover_url', label: 'Ссылка на обложку' },
         {

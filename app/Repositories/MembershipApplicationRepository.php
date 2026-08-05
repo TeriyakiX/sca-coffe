@@ -39,6 +39,9 @@ final readonly class MembershipApplicationRepository
             MembershipApplication::CITY => $dto->city,
             MembershipApplication::COMPANY => $dto->company,
             MembershipApplication::ABOUT => $dto->about,
+            MembershipApplication::EXPERT_INTEREST => $dto->expertInterest,
+            MembershipApplication::CONSENT_AT => now(),
+            MembershipApplication::MARKETING_CONSENT => $dto->marketingConsent,
         ]);
     }
 

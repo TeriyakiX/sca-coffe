@@ -6,7 +6,7 @@
             :subtitle="block('standards.hero').subtitle"
         >
             <template #actions>
-                <RouterLink to="/membership/join" class="btn btn--primary">Принять участие в рабочей группе</RouterLink>
+                <RouterLink to="/standards/working-group" class="btn btn--primary">Подать заявку в рабочую группу</RouterLink>
             </template>
         </VPageHero>
 
@@ -26,9 +26,15 @@
         </VContentSection>
 
         <VContentSection tag="Направления" :title="block('standards.directions').title">
-            <div class="chips">
-                <span v-for="d in titles('standards.directions')" :key="d" class="chip">{{ d }}</span>
-            </div>
+            <p class="standards-page__lead">{{ block('standards.directions').subtitle }}</p>
+            <!-- У каждой профессии показываем реальный статус: одновременно
+                 все стандарты не разрабатываются (помета документа) -->
+            <ul class="docs standards-page__directions">
+                <li v-for="d in items('standards.directions')" :key="d.title" class="docs__item">
+                    <span class="docs__title">{{ d.title }}</span>
+                    <span class="docs__status">{{ d.status }}</span>
+                </li>
+            </ul>
         </VContentSection>
 
         <VContentSection alt tag="Этапы" :title="block('standards.stages').title">
@@ -54,7 +60,7 @@
             </ul>
 
             <div class="btn-group standards-page__cta">
-                <RouterLink to="/membership/join" class="btn btn--primary">Подать заявку на участие</RouterLink>
+                <RouterLink to="/standards/working-group" class="btn btn--primary">Подать заявку в рабочую группу</RouterLink>
                 <RouterLink to="/education" class="btn btn--outline">Обучение и квалификации</RouterLink>
             </div>
         </VContentSection>

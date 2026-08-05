@@ -42,6 +42,11 @@ final readonly class AccreditationApplicationRepository
             AccreditationApplication::SITE_URL => $dto->site_url,
             AccreditationApplication::PROGRAMS => $dto->programs,
             AccreditationApplication::FACILITIES => $dto->facilities,
+            AccreditationApplication::EXPERIENCE => $dto->experience,
+            AccreditationApplication::TRAINERS_COUNT => $dto->trainers_count,
+            AccreditationApplication::COMMENT => $dto->comment,
+            AccreditationApplication::CONSENT_AT => now(),
+            AccreditationApplication::MARKETING_CONSENT => $dto->marketingConsent,
         ]);
     }
 

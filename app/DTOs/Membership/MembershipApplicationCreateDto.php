@@ -15,6 +15,8 @@ final readonly class MembershipApplicationCreateDto
         public string      $city,
         public string|null $company = null,
         public string|null $about = null,
+        public bool        $expertInterest = false,
+        public bool        $marketingConsent = false,
     )
     {
     }

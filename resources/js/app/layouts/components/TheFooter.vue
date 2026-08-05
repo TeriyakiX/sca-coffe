@@ -64,7 +64,7 @@ const columns = [
         links: [
             { to: '/education', label: 'Обучение и квалификации' },
             { to: '/accreditation', label: 'Аккредитация' },
-            { to: '/accreditation/apply', label: 'Заявка на аккредитацию' },
+            { to: '/accreditation/apply', label: 'Предварительная заявка на аккредитацию' },
         ],
     },
     {
@@ -73,7 +73,9 @@ const columns = [
             { to: '/info', label: 'Все разделы' },
             { to: '/page/about', label: 'Основные сведения' },
             { to: '/page/documents', label: 'Документы' },
-            { to: '/page/education', label: 'Образование' },
+            // Ведём сразу на канонический адрес, а не через /page/education → 301
+            { to: '/education', label: 'Обучение и квалификации' },
+            { to: '/page/privacy', label: 'Политика обработки данных' },
         ],
     },
 ]

@@ -23,6 +23,9 @@ final class ContactRequestCreateRequest extends FormRequest
             'name' => ['required', 'string', 'between:2,255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'message' => ['required', 'string', 'between:10,3000'],
+            'phone' => ['nullable', 'string', 'between:5,32'],
+            'personal_data_consent' => ['required', 'accepted'],
+            'marketing_consent' => ['sometimes', 'boolean'],
         ];
     }
 
@@ -33,6 +36,8 @@ final class ContactRequestCreateRequest extends FormRequest
             name: $this->validated('name'),
             email: $this->validated('email'),
             message: $this->validated('message'),
+            phone: $this->validated('phone'),
+            marketingConsent: $this->boolean('marketing_consent'),
         );
     }
 }

@@ -23,9 +23,11 @@ final class NewsFullResource extends JsonResource
             News::STATUS => $this->{News::STATUS}->value,
             News::TITLE => $this->{News::TITLE},
             News::EXCERPT => $this->{News::EXCERPT},
+            News::AUTHOR => $this->{News::AUTHOR},
             News::CONTENT => $this->{News::CONTENT},
             News::COVER_URL => $this->{News::COVER_URL},
             News::PUBLISHED_AT => $this->{News::PUBLISHED_AT}?->toIso8601String(),
+            News::UPDATED_AT => $this->{News::UPDATED_AT}?->toIso8601String(),
         ];
     }
 }
