@@ -7,7 +7,7 @@
                     <div class="brand__info">
                         <span class="brand__subtitle">
                             Ассоциация специалистов<br>
-                            кофейной и чайной индустрии России
+                            кофейной и чайной индустрии
                         </span>
                     </div>
                 </RouterLink>

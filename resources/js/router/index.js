@@ -66,9 +66,6 @@ const routes = [
     { path: '/about', redirect: '/association' },
     { path: '/business', redirect: '/partners' },
 
-    // Раздел 25 документа: старые страницы-дубли уводим на профильные разделы
-    { path: '/page/education', redirect: '/education' },
-    { path: '/page/standards', redirect: '/standards' },
 
     { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
@@ -98,7 +95,7 @@ router.beforeEach(async (to) => {
     return true
 })
 
-const BASE_TITLE = 'Ассоциация специалистов кофейной и чайной индустрии России'
+const BASE_TITLE = 'Ассоциация специалистов кофейной и чайной индустрии'
 
 let firstNavigation = true
 

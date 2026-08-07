@@ -51,7 +51,7 @@ final class ContentBlockSeeder extends Seeder
             [
                 ContentBlock::KEY => 'home.hero',
                 ContentBlock::SECTION => $section,
-                ContentBlock::TITLE => 'Ассоциация специалистов кофейной и чайной индустрии России',
+                ContentBlock::TITLE => 'Ассоциация специалистов кофейной и чайной индустрии',
                 ContentBlock::SUBTITLE => 'Разрабатываем профессиональные стандарты, объединяем экспертов отрасли и создаём систему аккредитации, обучения и подтверждения квалификации.',
                 ContentBlock::BODY => 'Профстандарты · Аккредитация · Квалификации · Реестры · Профессиональное сообщество',
                 ContentBlock::ITEMS => [
@@ -119,7 +119,7 @@ final class ContentBlockSeeder extends Seeder
                 ContentBlock::KEY => 'association.hero',
                 ContentBlock::SECTION => $section,
                 ContentBlock::TITLE => 'О нас',
-                ContentBlock::SUBTITLE => 'Ассоциация специалистов кофейной и чайной индустрии России создана для разработки профессиональных стандартов, развития системы подготовки специалистов и объединения экспертного сообщества отрасли.',
+                ContentBlock::SUBTITLE => 'Ассоциация специалистов кофейной и чайной индустрии создана для разработки профессиональных стандартов, развития системы подготовки специалистов и объединения экспертного сообщества отрасли.',
             ],
             [
                 ContentBlock::KEY => 'association.mission',

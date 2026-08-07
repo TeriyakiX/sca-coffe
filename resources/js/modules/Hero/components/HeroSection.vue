@@ -110,8 +110,11 @@ const pillars = computed(() => props.block.items ?? [])
 }
 
 .hero__pillars {
+    /* Колонок столько, сколько пунктов: список задаётся в админке,
+       жёсткие 4 колонки роняли пятый пункт на вторую строку */
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
     gap: 12px;
     margin-top: 56px;
     padding-top: 34px;
@@ -127,8 +130,17 @@ const pillars = computed(() => props.block.items ?? [])
     line-height: 1.4;
 }
 
+@media (max-width: 1100px) {
+    /* На узких экранах возвращаем обычный перенос по строкам */
+    .hero__pillars {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+
 @media (max-width: 900px) {
-    .hero__pillars { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .hero__pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 }
 
 @media (max-width: 768px) {

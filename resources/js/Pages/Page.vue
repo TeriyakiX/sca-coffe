@@ -43,7 +43,7 @@ const load = async (slug) => {
 
     // У маршрута страницы нет своего meta.title — берём его из загруженных данных
     if (page.value?.title) {
-        document.title = `${page.value.title} — Ассоциация специалистов кофейной и чайной индустрии России`
+        document.title = `${page.value.title} — Ассоциация специалистов кофейной и чайной индустрии`
     }
 }
 

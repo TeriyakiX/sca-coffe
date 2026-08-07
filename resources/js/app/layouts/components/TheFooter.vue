@@ -25,7 +25,7 @@
 
             <div class="footer__bottom">
                 <p class="footer__copyright">
-                    © {{ year }} Ассоциация специалистов кофейной и чайной индустрии России
+                    © {{ year }} Ассоциация специалистов кофейной и чайной индустрии
                 </p>
                 <a href="mailto:academybarista@ya.ru" class="footer__mail">academybarista@ya.ru</a>
             </div>
@@ -73,8 +73,7 @@ const columns = [
             { to: '/info', label: 'Все разделы' },
             { to: '/page/about', label: 'Основные сведения' },
             { to: '/page/documents', label: 'Документы' },
-            // Ведём сразу на канонический адрес, а не через /page/education → 301
-            { to: '/education', label: 'Обучение и квалификации' },
+            { to: '/page/education', label: 'Образование' },
             { to: '/page/privacy', label: 'Политика обработки данных' },
         ],
     },

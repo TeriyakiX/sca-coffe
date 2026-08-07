@@ -2,7 +2,7 @@
     <img
         class="logo"
         src="/images/logo.svg"
-        alt="Ассоциация специалистов кофейной и чайной индустрии России"
+        alt="Ассоциация специалистов кофейной и чайной индустрии"
         :width="size"
         :height="size"
         loading="eager"

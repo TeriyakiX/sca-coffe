@@ -3,7 +3,7 @@
         <form class="login__box" @submit.prevent="submit">
             <VLogo :size="48" class="login__logo" />
             <h1 class="login__title">Вход в админ-панель</h1>
-            <p class="login__subtitle">Ассоциация специалистов кофейной и чайной индустрии России</p>
+            <p class="login__subtitle">Ассоциация специалистов кофейной и чайной индустрии</p>
             <div class="login__fields">
                 <VFormField v-model="form.email" label="Email" type="email" :error="errors.email" required wide />
                 <VFormField v-model="form.password" label="Пароль" type="password" :error="errors.password" required wide />
