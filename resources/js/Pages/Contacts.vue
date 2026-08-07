@@ -17,6 +17,10 @@
                         <RouterLink to="/accreditation/apply" class="contacts__value">Предварительная заявка на аккредитацию</RouterLink>
                     </div>
                     <div class="contacts__item">
+                        <span class="contacts__label">Рабочие группы</span>
+                        <RouterLink to="/standards/working-group" class="contacts__value">Подать заявку эксперта</RouterLink>
+                    </div>
+                    <div class="contacts__item">
                         <span class="contacts__label">Партнёрство</span>
                         <span class="contacts__value contacts__value--plain">Направьте запрос через форму или на почту Ассоциации</span>
                     </div>

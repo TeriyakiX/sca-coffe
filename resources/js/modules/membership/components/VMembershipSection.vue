@@ -12,12 +12,20 @@
                     <span v-for="a in audienceItems" :key="a" class="chip">{{ a }}</span>
                 </div>
             </div>
+            <p class="membership__group-label">Доступно сейчас</p>
             <div v-reveal.stagger class="membership__grid">
                 <div v-for="b in benefitItems" :key="b.title" class="benefit">
                     <div class="benefit__icon"><VIcon :name="b.icon || 'check'" size="medium" /></div>
                     <h3 class="benefit__title">{{ b.title }}</h3>
                     <p class="benefit__text">{{ b.text }}</p>
                 </div>
+            </div>
+            <!-- Будущее отделяем и на главной: иначе оно читается как действующее -->
+            <div v-if="upcomingItems.length" class="membership__upcoming">
+                <p class="membership__group-label">В разработке</p>
+                <ul class="membership__upcoming-list">
+                    <li v-for="u in upcomingItems" :key="u">{{ u }}</li>
+                </ul>
             </div>
             <div class="btn-group btn-group--center membership__cta">
                 <RouterLink to="/membership/join" class="btn btn--primary">
@@ -40,12 +48,60 @@ const props = defineProps({
     hero: { type: Object, default: () => ({ title: '', subtitle: '' }) },
     audience: { type: Object, default: () => ({ items: [] }) },
     benefits: { type: Object, default: () => ({ items: [] }) },
+    upcoming: { type: Object, default: () => ({ items: [] }) },
 })
 
 const audienceItems = computed(() => (props.audience.items ?? []).map((i) => i.title))
 const benefitItems = computed(() => (props.benefits.items ?? []).slice(0, 4))
+const upcomingItems = computed(() => (props.upcoming.items ?? []).map((i) => i.title))
 </script>
 <style scoped>
+.membership__group-label {
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--color-primary);
+}
+
+.membership__upcoming {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--color-white);
+    border: 1px dashed rgba(0, 0, 0, 0.14);
+    border-radius: var(--radius);
+}
+
+.membership__upcoming-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 24px;
+    font-size: 14.5px;
+    color: rgba(26, 26, 26, 0.72);
+}
+
+.membership__upcoming-list li { padding-left: 16px; position: relative; }
+
+.membership__upcoming-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(45, 147, 89, 0.45);
+}
+
+@media (max-width: 680px) {
+    .membership__upcoming-list { grid-template-columns: minmax(0, 1fr); }
+    .membership__upcoming { padding: 20px; }
+}
+
 .membership {
     padding: 88px 0;
     background: var(--color-bg);

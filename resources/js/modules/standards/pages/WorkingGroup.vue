@@ -39,6 +39,22 @@
                             required
                             wide
                         />
+                        <VFormField
+                            v-model="form.topics"
+                            label="Темы, в которых готовы участвовать"
+                            type="textarea"
+                            placeholder="Например: трудовые функции бариста, требования к программам подготовки, критерии оценки"
+                            :error="errors.topics"
+                            wide
+                        />
+                        <VFormField
+                            v-model="form.links"
+                            label="Ссылки на профессиональные проекты или публикации"
+                            type="textarea"
+                            placeholder="Необязательно: сайт, портфолио, статьи, выступления"
+                            :error="errors.links"
+                            wide
+                        />
                     </div>
                     <label class="wg__consent">
                         <input v-model="consent" type="checkbox" required />
@@ -112,6 +128,8 @@ const emptyForm = () => ({
     role: '',
     experience: '',
     expertise: '',
+    topics: '',
+    links: '',
 })
 
 const form = reactive(emptyForm())
@@ -132,6 +150,8 @@ const buildMessage = () => [
     '',
     'Профессиональный опыт и экспертиза:',
     form.expertise,
+    ...(form.topics ? ['', 'Темы для участия:', form.topics] : []),
+    ...(form.links ? ['', 'Проекты и публикации:', form.links] : []),
 ].join('\n')
 
 const submit = async () => {

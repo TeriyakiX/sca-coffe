@@ -4,7 +4,7 @@
         <div class="hero__bg-circle hero__bg-circle--2" aria-hidden="true"></div>
         <div class="container hero__inner">
             <div class="hero__content">
-                <span class="hero__eyebrow">Профессиональная инфраструктура отрасли</span>
+                <span class="hero__eyebrow">Профессиональные стандарты и развитие отрасли</span>
                 <h1 class="hero__title">{{ block.title }}</h1>
                 <p class="hero__subtitle">{{ block.subtitle }}</p>
                 <div class="btn-group hero__actions">

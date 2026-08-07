@@ -2,8 +2,8 @@
     <section class="partners">
         <div v-reveal class="container">
             <VSectionHead
-                tag="Партнёры и бонусы"
-                title="Практическая польза членства"
+                tag="Партнёры"
+                title="Партнёрская программа формируется"
                 :subtitle="block.subtitle"
                 center
             />

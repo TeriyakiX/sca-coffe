@@ -21,7 +21,9 @@ final class MetaResolver
         $path = '/' . trim($path, '/');
         $path = $path === '/' ? '/' : rtrim($path, '/');
 
-        $meta = $this->fromNews($path)
+        // Явно заданное описание в конфиге приоритетнее автоматического из текста
+        $meta = $this->fromExplicitConfig($path)
+            ?? $this->fromNews($path)
             ?? $this->fromPage($path)
             ?? $this->fromConfig($path);
 
@@ -32,6 +34,11 @@ final class MetaResolver
             'url' => $url,
             'site_name' => (string) config('seo.site_name'),
         ];
+    }
+
+    private function fromExplicitConfig(string $path): array|null
+    {
+        return ((array) config('seo.pages', []))[$path] ?? null;
     }
 
     private function fromConfig(string $path): array
@@ -78,9 +85,12 @@ final class MetaResolver
             return null;
         }
 
+        // Пробел между тегами обязателен: иначе заголовок склеивается со следующим абзацем
+        $text = strip_tags(str_replace('<', ' <', (string) $page->{Page::CONTENT}));
+
         return [
             'title' => $page->{Page::TITLE},
-            'description' => $this->shorten(strip_tags((string) $page->{Page::CONTENT})),
+            'description' => $this->shorten($text),
         ];
     }
 

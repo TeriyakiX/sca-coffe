@@ -12,6 +12,7 @@
             :hero="block('membership.hero')"
             :audience="block('membership.audience')"
             :benefits="block('membership.benefits')"
+            :upcoming="block('membership.upcoming')"
         />
         <VAccreditationSection
             :hero="block('accreditation.hero')"

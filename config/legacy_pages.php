@@ -14,6 +14,10 @@ return [
      */
     'gone' => [
         'career-center',
+        // Образовательные программы отдаются файлами PDF, отдельных страниц под них нет
+        'programma-arhivarius',
+        'programma-navyki-rukovoditelya',
+        'programma-yunyy-zhurnalist',
     ],
 
     // Перенаправлений нет: /page/education и /page/standards снова работают

@@ -3,18 +3,25 @@
         <div class="container standards__inner">
             <div v-reveal class="standards__left">
                 <VSectionHead
-                    tag="Профессиональные стандарты"
-                    title="Главная стратегическая задача Ассоциации"
-                    :subtitle="hero.subtitle"
+                    tag="Главная стратегическая задача"
+                    title="Профессиональные стандарты для кофейной и чайной индустрии"
                 />
+                <p class="standards__intro">
+                    Профессиональный стандарт описывает, какие функции выполняет специалист, что он должен знать
+                    и уметь, как может развиваться в профессии и по каким критериям оценивается его квалификация.
+                </p>
+                <p class="standards__intro">
+                    Сейчас Ассоциация формирует рабочие группы и разрабатывает проекты стандартов
+                    по кофейному, чайному и образовательному направлениям.
+                </p>
                 <h3 class="standards__label">{{ developed.title }}</h3>
                 <VCheckList :items="developedItems" />
                 <div class="btn-group standards__actions">
                     <RouterLink to="/standards" class="btn btn--primary">
-                        Следить за разработкой стандартов
+                        Посмотреть направления разработки
                     </RouterLink>
-                    <RouterLink to="/standards#working-groups" class="btn btn--outline">
-                        Принять участие в рабочей группе
+                    <RouterLink to="/standards/working-group" class="btn btn--outline">
+                        Подать заявку в рабочую группу
                     </RouterLink>
                 </div>
             </div>
@@ -43,6 +50,14 @@ const developedItems = computed(() => (props.developed.items ?? []).map((i) => i
 const directionItems = computed(() => (props.directions.items ?? []).map((i) => i.title))
 </script>
 <style scoped>
+.standards__intro {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: rgba(26, 26, 26, 0.7);
+    margin: 0 0 14px;
+    max-width: 620px;
+}
+
 .standards {
     padding: 88px 0;
     background: var(--color-white);

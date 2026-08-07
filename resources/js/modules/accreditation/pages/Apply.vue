@@ -3,7 +3,7 @@
         <VPageHero
             eyebrow="Аккредитация"
             title="Предварительная заявка на аккредитацию"
-            subtitle="Заполните заявку — Ассоциация проверит данные, уточнит комплект документов и направит порядок прохождения процедуры."
+            subtitle="Процедура аккредитации находится в разработке. Предварительная заявка не предоставляет статус аккредитованного центра — она фиксирует ваш интерес, чтобы Ассоциация связалась с вами после утверждения требований."
         />
         <VContentSection alt>
             <div class="apply">
@@ -70,13 +70,13 @@
                     <label class="apply__consent apply__consent--optional">
                         <input v-model="marketingConsent" type="checkbox" />
                         <span>
-                            Согласен получать информационные материалы Ассоциации.
+                            Согласен получать новости о разработке процедуры аккредитации.
                             <em class="apply__consent-note">Необязательно, можно отозвать в любой момент.</em>
                         </span>
                     </label>
                     <p v-if="formError" class="apply__error">{{ formError }}</p>
                     <button type="submit" class="btn btn--primary apply__submit" :disabled="!consent || sending">
-                        {{ sending ? 'Отправляем…' : 'Отправить заявку' }}
+                        {{ sending ? 'Отправляем…' : 'Отправить предварительную заявку' }}
                     </button>
                 </form>
                 <div v-else class="apply__done">

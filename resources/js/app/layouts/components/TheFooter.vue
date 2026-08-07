@@ -68,13 +68,15 @@ const columns = [
         ],
     },
     {
-        title: 'Сведения об организации',
+        title: 'Документы',
         links: [
-            { to: '/info', label: 'Все разделы' },
+            { to: '/info', label: 'Сведения и документы Ассоциации' },
             { to: '/page/about', label: 'Основные сведения' },
-            { to: '/page/documents', label: 'Документы' },
-            { to: '/page/education', label: 'Образование' },
-            { to: '/page/privacy', label: 'Политика обработки данных' },
+            { to: '/page/management', label: 'Руководство и педагогический состав' },
+            { to: '/page/documents', label: 'Документы Ассоциации' },
+            { to: '/page/finance', label: 'Отчёты' },
+            { to: '/page/privacy', label: 'Политика конфиденциальности' },
+            { to: '/page/cookies', label: 'Политика использования cookies' },
         ],
     },
 ]

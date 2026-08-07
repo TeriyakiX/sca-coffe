@@ -3,7 +3,7 @@
         <VPageHero
             eyebrow="Членство"
             title="Анкета вступления в Ассоциацию"
-            subtitle="Заполните заявку — Ассоциация свяжется с вами, уточнит категорию членства и направит условия участия."
+            subtitle="Заполните анкету — Ассоциация свяжется с вами, уточнит категорию членства и направит условия участия."
         />
         <VContentSection alt>
             <div class="join">
@@ -53,16 +53,16 @@
                     </label>
                     <p v-if="formError" class="join__error">{{ formError }}</p>
                     <button type="submit" class="btn btn--primary join__submit" :disabled="!consent || sending">
-                        {{ sending ? 'Отправляем…' : 'Отправить заявку' }}
+                        {{ sending ? 'Отправляем…' : 'Отправить анкету' }}
                     </button>
                 </form>
                 <div v-else class="join__done">
                     <VIcon name="check" size="large" />
-                    <h2 class="join__done-title">Заявка отправлена</h2>
+                    <h2 class="join__done-title">Анкета отправлена</h2>
                     <p class="join__done-text">
                         Ассоциация свяжется с вами по указанным контактам и направит условия участия.
                     </p>
-                    <button class="btn btn--outline" @click="reset">Отправить ещё одну</button>
+                    <button class="btn btn--outline" @click="reset">Заполнить ещё одну</button>
                 </div>
                 <aside class="join__aside">
                     <h3 class="join__aside-title">Что даёт членство</h3>

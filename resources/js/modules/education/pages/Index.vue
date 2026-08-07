@@ -6,7 +6,7 @@
             :subtitle="block('education.hero').subtitle"
         >
             <template #actions>
-                <RouterLink to="/accreditation/apply" class="btn btn--primary">Аккредитовать учебный центр</RouterLink>
+                <RouterLink to="/accreditation/apply" class="btn btn--primary">Подать предварительную заявку от учебного центра</RouterLink>
                 <RouterLink to="/standards" class="btn btn--outline">Профессиональные стандарты</RouterLink>
             </template>
         </VPageHero>
